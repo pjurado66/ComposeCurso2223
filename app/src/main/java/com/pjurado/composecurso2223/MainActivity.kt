@@ -11,8 +11,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pjurado.composecurso2223.ui.theme.ComposeCurso2223Theme
@@ -46,11 +48,37 @@ fun mediaItem(){
         ) {
             
         }
-        Text(text = "Title 1")
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.secondary)
+                .padding(8.dp)
+        ){
+            Text(text = "Title 1")
+        }
     }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(text = "Hello $name!", modifier = modifier)
+}
+
+//@Preview(showBackground = true, widthDp = 200, heightDp = 100)
+@Composable
+fun ButtonText() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            text = "Hello World",
+            modifier = Modifier
+                .clickable { /*TODO*/ }
+                .background(Color.Cyan)
+                .border(width = 2.dp, color = Color.Blue)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+    }
 }
