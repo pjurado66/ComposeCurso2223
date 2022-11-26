@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.*
@@ -58,54 +59,35 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val (value, onValueChange) = rememberSaveable{mutableStateOf("")}
-                    StateSample(
-                        value = value,
-                        onValueChange = { onValueChange }
-                    )
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = { Text(text = stringResource(id = R.string.app_name)) },
+                                navigationIcon = {
+                                    IconButton(onClick = { /*TODO*/ }) {
+                                        Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                                    }
+                                }
+                            )
+                        }
+                    ){ padding ->
+                        MediaList(modifier = Modifier.padding(padding))
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun StateSample(value: String, onValueChange: (String) -> Unit){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(64.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = value,
-            onValueChange = { onValueChange(it) },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Text(
-            text = value,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Yellow)
-                .padding(8.dp)
-        )
-        Button(
-            onClick = { onValueChange("") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = value.isNotEmpty()
-        ) {
-            Text(text = "Clear")
-        }
-    }
-}
 
 
 //@Preview
 @Composable
-fun MediaList(){
+fun MediaList(modifier: Modifier = Modifier){
     LazyVerticalGrid(
         contentPadding = PaddingValues(2.dp),
-        columns = GridCells.Adaptive(150.dp)
+        columns = GridCells.Adaptive(150.dp),
+        modifier = modifier
     ) {
         items(getMedia()){ item->
             MediaListItem(item, Modifier.padding(2.dp))
@@ -196,5 +178,35 @@ fun ButtonText() {
             )
 
         )
+    }
+}
+
+@Composable
+fun StateSample(value: String, onValueChange: (String) -> Unit){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(64.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        TextField(
+            value = value,
+            onValueChange = { onValueChange(it) },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Text(
+            text = value,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow)
+                .padding(8.dp)
+        )
+        Button(
+            onClick = { onValueChange("") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = value.isNotEmpty()
+        ) {
+            Text(text = "Clear")
+        }
     }
 }
