@@ -1,6 +1,6 @@
-package com.pjurado.composecurso2223
+package com.pjurado.composecurso2223.model
 
-import com.pjurado.composecurso2223.MediaItem.Type
+import com.pjurado.composecurso2223.model.MediaItem.Type
 
 data class MediaItem(
     val id: Int,
